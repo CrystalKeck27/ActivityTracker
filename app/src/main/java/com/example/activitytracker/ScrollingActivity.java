@@ -12,12 +12,18 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.activitytracker.databinding.ActivityScrollingBinding;
+
+import java.util.ArrayList;
 
 public class ScrollingActivity extends AppCompatActivity {
 
     private ActivityScrollingBinding binding;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,23 @@ public class ScrollingActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
+        });
+
+        listView = findViewById(R.id.listView);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            arrayList.add(String.valueOf(i));
+        }
+
+        arrayList.add("Comp Sci Homework");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, arrayList);
+
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Snackbar.make(view, arrayList.get(i), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         });
     }
 
